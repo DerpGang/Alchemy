@@ -306,7 +306,7 @@ int wlan_log_to_user(VOS_TRACE_LEVEL log_level, char *to_be_sent, int length)
 		 * that happen just print it, so that the logging would be
 		 * aware the cnss_logger is somehow failed.
 		 */
-		pr_info("R%d: %s\n", radio, to_be_sent);
+		pr_debug("R%d: %s\n", radio, to_be_sent);
 	} else {
 
 		/* Format the Log time R#: [hr:min:sec.microsec] */
@@ -381,7 +381,7 @@ int wlan_log_to_user(VOS_TRACE_LEVEL log_level, char *to_be_sent, int length)
 		if (gwlan_logging.log_fe_to_console
 			&& ((VOS_TRACE_LEVEL_FATAL == log_level)
 			|| (VOS_TRACE_LEVEL_ERROR == log_level))) {
-			pr_info("%s %s\n", tbuf, to_be_sent);
+			pr_debug("%s %s\n", tbuf, to_be_sent);
 		}
 	}
 	return 0;
@@ -536,7 +536,7 @@ int pktlog_send_per_pkt_stats_to_user(void)
 
 		ret = nl_srv_bcast_diag(pstats_msg->skb);
 		if ((ret < 0) && (ret != -ESRCH)) {
-			pr_info("%s: Send Failed %d drop_count = %u\n",
+			pr_debug("%s: Send Failed %d drop_count = %u\n",
 				__func__, ret,
 				++gwlan_logging.pkt_stat_drop_cnt);
 		} else {
@@ -1375,7 +1375,7 @@ void wlan_register_txrx_packetdump(void)
 void wlan_flush_host_logs_for_fatal(void)
 {
 	if (vos_is_log_report_in_progress()) {
-		pr_info("%s:flush all host logs Setting HOST_LOG_POST_MASK\n",
+		pr_debug("%s:flush all host logs Setting HOST_LOG_POST_MASK\n",
 			 __func__);
 		adf_os_spin_lock_irqsave(&gwlan_logging.spin_lock);
 		wlan_queue_logmsg_for_app();

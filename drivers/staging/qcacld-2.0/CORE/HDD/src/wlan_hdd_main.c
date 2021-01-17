@@ -10075,7 +10075,7 @@ static int kickstart_driver(bool load, bool mode_change)
 {
 	int ret_status;
 
-	pr_info("%s: load: %d wlan_hdd_inited: %d, mode_change: %d caller: %pf\n",
+	pr_debug("%s: load: %d wlan_hdd_inited: %d, mode_change: %d caller: %pf\n",
 			 __func__, load, wlan_hdd_inited,
 			mode_change, (void *)_RET_IP_);
 
@@ -15281,7 +15281,7 @@ void hdd_exchange_version_and_caps(hdd_context_t *pHddCtx)
       }
       else
       {
-         pr_info("%s: WCNSS WLAN version %u.%u.%u.%u\n",
+         pr_debug("%s: WCNSS WLAN version %u.%u.%u.%u\n",
                  WLAN_MODULE_NAME,
                  (int)versionReported.major,
                  (int)versionReported.minor,
@@ -15300,7 +15300,7 @@ void hdd_exchange_version_and_caps(hdd_context_t *pHddCtx)
          break;
       }
 
-      pr_info("%s: WCNSS software version %s\n",
+      pr_debug("%s: WCNSS software version %s\n",
               WLAN_MODULE_NAME, versionString);
 
       vstatus = sme_GetWcnssHardwareVersion(pHddCtx->hHal,
@@ -15314,7 +15314,7 @@ void hdd_exchange_version_and_caps(hdd_context_t *pHddCtx)
          break;
       }
 
-      pr_info("%s: WCNSS hardware version %s\n",
+      pr_debug("%s: WCNSS hardware version %s\n",
               WLAN_MODULE_NAME, versionString);
 
       /* 1.Check if FW version is greater than 0.1.1.0. Only then send host-FW capability exchange message
@@ -18220,7 +18220,7 @@ static int hdd_driver_init( void)
 
    vos_ssr_protect_init();
 
-   pr_info("%s: loading driver v%s\n", WLAN_MODULE_NAME,
+   pr_debug("%s: loading driver v%s\n", WLAN_MODULE_NAME,
            QWLAN_VERSIONSTR TIMER_MANAGER_STR MEMORY_DEBUG_STR);
 
 #ifdef CONFIG_VOS_MEM_PRE_ALLOC
@@ -18276,7 +18276,7 @@ static int hdd_driver_init( void)
    vos_remove_pm_qos();
 
    if (ret_status == 0) {
-      pr_info("%s: driver loaded in %lld\n", WLAN_MODULE_NAME,
+      pr_debug("%s: driver loaded in %lld\n", WLAN_MODULE_NAME,
              adf_get_boottime() - start);
       hdd_allow_suspend(WIFI_POWER_EVENT_WAKELOCK_DRIVER_INIT);
       return 0;
@@ -18423,7 +18423,7 @@ static void hdd_driver_exit(void)
    int retry = 0;
    v_CONTEXT_t pVosContext = NULL;
 
-   pr_info("%s: unloading driver v%s\n", WLAN_MODULE_NAME, QWLAN_VERSIONSTR);
+   pr_debug("%s: unloading driver v%s\n", WLAN_MODULE_NAME, QWLAN_VERSIONSTR);
 
    //Get the global vos context
    pVosContext = vos_get_global_context(VOS_MODULE_ID_SYS, NULL);
@@ -18508,7 +18508,7 @@ static void hdd_driver_exit(void)
 
 done:
    hdd_wlan_wakelock_destroy();
-   pr_info("%s: driver unloaded\n", WLAN_MODULE_NAME);
+   pr_debug("%s: driver unloaded\n", WLAN_MODULE_NAME);
 }
 
 /**---------------------------------------------------------------------------
@@ -18567,7 +18567,7 @@ static int fwpath_changed_handler(const char *kmessage,
 		mode_change = ret ? true : false;
 
 
-		pr_info("%s : new_mode : %s, present_mode : %s\n", __func__,
+		pr_debug("%s : new_mode : %s, present_mode : %s\n", __func__,
 			kmessage, fwpath_mode_local);
 
 		strlcpy(fwpath_mode_local, kmessage,
